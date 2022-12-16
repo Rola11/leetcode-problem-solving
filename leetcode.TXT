@@ -1,0 +1,152 @@
+1)Contains Duplicate
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+       Map<Integer,Integer>mp=new HashMap <Integer, Integer>();
+       for(int i=0;i<nums.length;i++)
+       {
+        mp.put(nums[i], mp.getOrDefault(nums[i],0)+1);
+          if(mp.get(nums[i])>1)
+            return true;
+       }
+       return false;
+    }
+}
+
+
+2)Two Sum
+
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        int arr[]=new int[2];
+        int flag=0;
+        for(int i=0;i<nums.length-1;i++)
+        {
+            arr[0]=i;
+            //target-nums[i];
+            for(int j=i+1;j<nums.length;j++)
+            {
+                if(nums[j]+nums[i]==target)
+                {
+                    arr[1]=j;
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag==1)
+              break;
+        }
+        return arr;
+    }
+}
+
+
+
+3) Best Time to Buy and Sell Stock
+
+
+class Solution {
+    public int maxProfit(int[] prices) {
+         int min=Integer.MAX_VALUE,sub,res=0;
+         for(int i=0;i<prices.length;i++)
+         {
+             if(prices[i]<min)
+             {
+                 min=prices[i];
+             }
+            sub=prices[i]-min;
+            if(res<sub)
+            {
+                res=sub;
+            }
+         }
+         return res;
+    }
+}
+
+
+
+4)3Sum
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+       HashSet<List<Integer>> set=new HashSet<>();
+       for(int i=0;i<nums.length;i++)
+       {
+         int j=i+1;
+         int k=nums.length-1;
+
+         while(j<k)
+         {
+             int val=nums[i]+nums[j]+nums[k];
+             if(val==0) set.add(Arrays.asList(nums[i],nums[j++],nums[k--]));
+             else if(val<0) j++;
+             else k--;
+         }
+       }
+       return new ArrayList<>(set);   
+    }
+}
+
+
+5)Valid Sudoku
+
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+        for(int i=0;i<9;i++)
+        {
+            int[]row=new int[10];
+            int[]col=new int[10];
+            for(int j=0;j<9;j++)
+            {
+                int num = board[i][j] -'0';
+                if(num>0&&num<10)
+                {
+                    if(row[num]==1)return false;
+                    row[num]=1;
+                }
+                int val = board[j][i]-'0';
+                if(val>0&&val<10)
+                {
+                    if(col[val]==1)return false;
+                    col[val]=1;
+                }
+            }
+        }
+           int y=0;
+            for(int i=0;i<9;i++)
+            {
+                int x=i*3;
+                x%=9;
+                if(i%3==0&&i!=0)
+                {
+                   y+=3;
+                }
+                int []fre=new int[10];
+                for(int j=0;j<3;j++)
+                {
+                   for(int k=0;k<3;k++)
+                   {
+                       int num=board[j+y][k+x]-'0';
+                       if(num>0&&num<10)
+                       {
+                           if(fre[num]==1)return false;
+                            fre[num]=1;
+                       }
+                   }
+                }
+            }
+        
+        return true;
+    }
+}
+
+
+
+
+
